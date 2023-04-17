@@ -21,12 +21,27 @@ class SingletonMeta(type):
 class AppConfiguration(metaclass=SingletonMeta):
     def __init__(self, configs: dict):
         self.configs = {}
+        self.required_fields = ["KNOWLEDGE_BASE_PATH"]
+        for field in self.required_fields:
+            if configs.get(field) is None:
+                raise Exception(f"Need {field} for app configuration")
+            else:
+                self.configs.setdefault(field, configs.get(field))
+        default_values = {
+            "SLEEP_TIME": 600
+        }
+        for field in default_values:
+            if configs.get(field) is None:
+                self.configs.setdefault(field, default_values.get(field))
+            else:
+                self.configs.setdefault(field, configs.get(field))
 
     def get_knowledge_base_path(self):
-        return self.configs.get("KNOWLEDGE_BASE_PATH")
+        return Path(self.configs.get("KNOWLEDGE_BASE_PATH"))
 
     def get_sleep_time(self):
         return self.configs.get("SLEEP_TIME")
+
 
 class NotificationConfiguration():
     def __init__(self, configs: dict):
@@ -37,13 +52,14 @@ class NotificationService(metaclass=SingletonMeta):
     def __int__(self):
         pass
 
-    def send(self, summary : str, message : str):
-        pass
+    def send(self, summary: str, message: str):
+        print('sending... send')
+
 
 class KnowledgeBase(metaclass=SingletonMeta):
 
-    def __init__(self, path):
-        self.path = Path(path)
+    def __init__(self, path: Path):
+        self.path = path
         self.data = {}
         self.modification_time = 0
         if not self.path.exists() or not self.path.is_file():
@@ -51,7 +67,7 @@ class KnowledgeBase(metaclass=SingletonMeta):
 
     def __load_data(self):
         with self.path.open() as f:
-            self.path = json.loads(f.read())
+            self.data = json.loads(f.read())
 
     def get_summary_and_message(self) -> (str, str):
         modification_time = os.path.getmtime(self.path)
