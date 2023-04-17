@@ -50,7 +50,7 @@ class NotificationUrgencyLevel(Enum):
     CRITICAL = "CRITICAL"
 
 
-class NotificationConfiguration():
+class NotificationConfiguration:
     def __init__(self, configs: dict):
         self.APP_NAME = "APP_NAME"
         self.URGENCY_LEVEL = "URGENCY_LEVEL"
@@ -84,19 +84,26 @@ class NotificationConfiguration():
     def get_icon_path(self) -> str:
         return self.configs.get(self.ICON)
 
-    def get_expire_time(self):
-        return self.configs.get(self.EXPIRE_TIME)
+    def get_expire_time(self) -> int:
+        return int(self.configs.get(self.EXPIRE_TIME))
 
-    def get_urgency_level(self):
+    def get_urgency_level(self) -> NotificationUrgencyLevel:
         return self.configs.get(self.URGENCY_LEVEL)
 
 
 class NotificationService(metaclass=SingletonMeta):
-    def __int__(self):
-        pass
+    def __init__(self):
+        self.service_provider = "notify-send"
 
     def send(self, config: NotificationConfiguration, summary: str, message: str):
-        print('sending... send')
+        # print('sending... send')
+        args = [self.service_provider,
+                f"--urgency={config.get_urgency_level().value}",
+                f"--expire-time={config.get_expire_time()}"]
+        if config.get_icon_path() is not None:
+            args.append(f"--icon={config.get_icon_path()}")
+        args = args + [summary, message]
+        subprocess.call(args)
 
 
 class KnowledgeBase(metaclass=SingletonMeta):
