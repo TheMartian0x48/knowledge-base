@@ -1,11 +1,12 @@
 {
   "APP": {
-    "WAIT_TIME": "10",
+    "SLEEP_TIME": "10",
     "KNOWLEDGE_BASE_PATH" : "/mnt/Development/Development/spanish/data/data.json"
   },
   "NOTIFICATION": {
-    "NOTIFICATION_APP_NAME": "TheMartian0x48",
-    "NOTIFICATION_ICON" : "/mnt/Development/Development/spanish/data/spanish.png",
-    "NOTIFICATION_URGENCY_LEVEL" : "NORMAL"
+    "APP_NAME": "TheMartian0x48",
+    "ICON" : "/mnt/Development/Development/spanish/data/spanish.png",
+    "URGENCY_LEVEL" : "NORMAL",
+    "EXPIRE_TIME" : "10"
   }
 }
