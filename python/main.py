@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
-import subprocess, os, time, json, sys, random
+import subprocess, os, time, json, random
 from pathlib import Path
 from enum import Enum
-import constants
 
 # CONFIG_FILE = "/.config/config_spanish_the_matian0x48.json"
 CONFIG_FILE = "config.json"
