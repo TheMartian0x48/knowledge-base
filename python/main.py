@@ -4,8 +4,9 @@ import subprocess, os, time, json, random
 from pathlib import Path
 from enum import Enum
 
-# CONFIG_FILE = "/.config/config_spanish_the_matian0x48.json"
-CONFIG_FILE = "config.json"
+HOME_DIR = os.environ['HOME']
+CONFIG_FILE_PATH = f"{HOME_DIR}/.config/knowledge_base_config.json"
+BACKUP_CONFIG_FILE = f"{HOME_DIR}/.knowledgebase/python/config.json"
 
 
 class SingletonMeta(type):
@@ -129,7 +130,10 @@ class KnowledgeBase(metaclass=SingletonMeta):
 
 
 def get_configuration_file() -> str:
-    return CONFIG_FILE
+    if Path(CONFIG_FILE_PATH).exists():
+        return CONFIG_FILE_PATH
+    # using backup config
+    return BACKUP_CONFIG_FILE
 
 
 def load_configuration() -> (AppConfiguration, NotificationService):
