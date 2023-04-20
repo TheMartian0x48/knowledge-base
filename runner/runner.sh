@@ -1,11 +1,14 @@
-# TODO
+# run the application in background
 function knowledgebase_start() {
-  python3 $HOME/.knowledgebase/python/main.py
+  $HOME/.knowledgebase/python/main.py &
+  echo "started knowledgebase"
 }
 
-# TODO
+# find pid and kill it
 function knowledgebase_stop() {
-  echo "knowledgebase_stop"
+  pid=`ps -ef | grep '.knowledgebase/python/main.py' | awk '{print $2 " " $8'} | grep python3 | awk '{print $1}'`
+  kill -9 $pid
+  echo "stopped knowledgebase"
 }
 
 # TODO
