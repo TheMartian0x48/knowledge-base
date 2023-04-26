@@ -3,8 +3,8 @@ from util import get_configuration_file
 
 
 def get_database_file_path() -> str:
-    with open(get_configuration_file(), "r") as f:
-        configs = json.loads(f.read())
+    with open(get_configuration_file(), "r") as config_file:
+        configs = json.loads(config_file.read())
     return configs["APP"]["KNOWLEDGE_BASE_PATH"]
 
 
@@ -45,7 +45,7 @@ while True:
         is_override = input(f"already exist in knowledgebase. want to override ? (Y/y for yes) : ")
         if is_override == 'y' or is_override == 'Y':
             knowledgebase[topic][knowledge] = base
-            print(f"overrided {knowledge} in {topic}")
+            print(f"overridden {knowledge} in {topic}")
     else:
         knowledgebase[topic][knowledge] = base
         print(f"added {knowledge} in {topic}")
