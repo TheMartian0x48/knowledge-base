@@ -126,7 +126,7 @@ class KnowledgeBase(metaclass=SingletonMeta):
             self.modification_time = modification_time
         summary = random.choice(list(self.data.keys()))
         key = random.choice(list(self.data[summary].keys()))
-        return summary, f"{key}\n:\n{self.data[summary][key]}"
+        return summary, f"{key}\n{self.data[summary][key]}"
 
 
 def get_configuration_file() -> str:
