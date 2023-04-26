@@ -13,7 +13,7 @@ function knowledgebase_stop() {
 
 # TODO
 function knowledgebase_add() {
-  echo "knowledgebase_add"
+  python3 $HOME/.knowledgebase/python/adder.py
 }
 
 function knowledgebase() {
